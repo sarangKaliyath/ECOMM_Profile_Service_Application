@@ -1,36 +1,47 @@
 package com.ecomm.ecomm_profile_service_application.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(indexes = {@Index(name = "idx_address_profile", columnList = "user_profile_id")})
+@Table(
+        indexes = {
+                @Index(name = "idx_address_profile", columnList = "user_profile_id"),
+                @Index(name = "idx_address_default", columnList = "user_profile_id,is_default")
+        }
+)
+
 public class Address extends BaseModel {
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_profile_id", nullable = false)
     private UserProfile userProfile;
 
-    @NotBlank(message = "Address line 1 cannot be blank")
+    @Column(nullable = false, length = 255)
     private String addressLine1;
+
+    @Column(length = 255)
     private String addressLine2;
 
-    @NotBlank(message = "City cannot be blank")
+    @Column(nullable = false, length = 100)
     private String city;
 
-    @NotBlank(message = "State cannot be blank")
+    @Column(nullable = false, length = 100)
     private String state;
 
-    @NotBlank(message = "Country cannot be blank")
+    @Column(nullable = false, length = 100)
     private String country;
 
-    @NotBlank(message = "Pincode cannot be blank")
+    @Column(nullable = false, length = 20)
     private String pincode;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private AddressType addressType;
-    private Boolean isDefault;
+
+    @Column(nullable = false)
+    private Boolean isDefault = false;
 }
