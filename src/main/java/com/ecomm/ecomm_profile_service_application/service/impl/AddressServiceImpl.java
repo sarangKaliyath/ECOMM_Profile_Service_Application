@@ -4,6 +4,7 @@ import com.ecomm.ecomm_profile_service_application.dto.request.CreateAddressRequ
 import com.ecomm.ecomm_profile_service_application.dto.request.UpdateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.response.AddressResponseDto;
 import com.ecomm.ecomm_profile_service_application.exception.AddressNotFoundException;
+import com.ecomm.ecomm_profile_service_application.exception.DefaultAddressCannotBeDeletedException;
 import com.ecomm.ecomm_profile_service_application.exception.ProfileNotFoundException;
 import com.ecomm.ecomm_profile_service_application.mapper.AddressMapper;
 import com.ecomm.ecomm_profile_service_application.model.Address;
@@ -76,6 +77,7 @@ public class AddressServiceImpl implements AddressService {
     public void deleteAddress(Long authUserId, Long addressId) {
         UserProfile userProfile = getUserProfile(authUserId);
         Address address = getAddress(addressId, userProfile);
+        if(address.getIsDefault()) throw new DefaultAddressCannotBeDeletedException("Default address cannot be delete.");
         addressRepository.delete(address);
     }
 

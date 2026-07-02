@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.security.auth.DestroyFailedException;
+
 @RestControllerAdvice
 public class ControllerAdvisor {
 
@@ -23,5 +25,10 @@ public class ControllerAdvisor {
     @ExceptionHandler(AddressNotFoundException.class)
     public ResponseEntity<String> handleAddressNotFoundException(Exception e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(DestroyFailedException.class)
+    public ResponseEntity<String> handleDefaultAddressCannotBeDeletedException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }
