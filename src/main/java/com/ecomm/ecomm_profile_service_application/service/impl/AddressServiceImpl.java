@@ -60,9 +60,10 @@ public class AddressServiceImpl implements AddressService {
         UserProfile userProfile = getUserProfile(authUserId);
         Address address = getAddress(addressId, userProfile);
 
+        boolean makeDefault = Boolean.TRUE.equals(requestDto.getIsDefault());
         addressMapper.updateEntity(address, requestDto);
 
-        if (Boolean.TRUE.equals(address.getIsDefault())) {
+        if (makeDefault) {
             clearDefaultAddress(userProfile);
             address.setIsDefault(true);
         }
