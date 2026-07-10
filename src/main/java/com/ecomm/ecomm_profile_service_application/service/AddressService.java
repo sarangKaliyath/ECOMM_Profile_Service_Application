@@ -3,6 +3,7 @@ package com.ecomm.ecomm_profile_service_application.service;
 import com.ecomm.ecomm_profile_service_application.dto.request.CreateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.request.UpdateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.response.AddressResponseDto;
+import com.ecomm.ecomm_profile_service_application.dto.response.OrderAddressResponseDto;
 import com.ecomm.ecomm_profile_service_application.model.Address;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 public interface AddressService {
 
     List<AddressResponseDto> getAddresses(Long authUserId);
+
+    OrderAddressResponseDto getAddress(Long addressId, Long authUserId);
 
     AddressResponseDto createAddress(Long authUserId, CreateAddressRequestDto requestDto);
 

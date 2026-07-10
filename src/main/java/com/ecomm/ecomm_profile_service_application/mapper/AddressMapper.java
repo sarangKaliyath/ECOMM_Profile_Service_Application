@@ -3,6 +3,7 @@ package com.ecomm.ecomm_profile_service_application.mapper;
 import com.ecomm.ecomm_profile_service_application.dto.request.CreateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.response.AddressResponseDto;
 import com.ecomm.ecomm_profile_service_application.dto.request.UpdateAddressRequestDto;
+import com.ecomm.ecomm_profile_service_application.dto.response.OrderAddressResponseDto;
 import com.ecomm.ecomm_profile_service_application.model.Address;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,25 @@ public class AddressMapper {
         addressResponseDto.setIsDefault(address.getIsDefault());
 
         return  addressResponseDto;
+    }
+
+    public OrderAddressResponseDto toOrderResponse(Address address){
+        OrderAddressResponseDto res = new OrderAddressResponseDto();
+
+        res.setId(address.getId());
+
+        res.setFirstName(address.getUserProfile().getFirstName());
+        res.setLastName(address.getUserProfile().getLastName());
+        res.setPhoneNumber(address.getUserProfile().getPhoneNumber());
+
+        res.setAddressLine1(address.getAddressLine1());
+        res.setAddressLine2(address.getAddressLine2());
+        res.setCity(address.getCity());
+        res.setState(address.getState());
+        res.setCountry(address.getCountry());
+        res.setPincode(address.getPincode());
+
+        return res;
     }
 
     public Address toEntity(CreateAddressRequestDto requestDto) {

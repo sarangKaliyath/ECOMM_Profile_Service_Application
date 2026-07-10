@@ -3,6 +3,7 @@ package com.ecomm.ecomm_profile_service_application.service.impl;
 import com.ecomm.ecomm_profile_service_application.dto.request.CreateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.request.UpdateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.response.AddressResponseDto;
+import com.ecomm.ecomm_profile_service_application.dto.response.OrderAddressResponseDto;
 import com.ecomm.ecomm_profile_service_application.exception.AddressNotFoundException;
 import com.ecomm.ecomm_profile_service_application.exception.DefaultAddressCannotBeDeletedException;
 import com.ecomm.ecomm_profile_service_application.exception.ProfileNotFoundException;
@@ -34,6 +35,12 @@ public class AddressServiceImpl implements AddressService {
                 .stream()
                 .map(addressMapper::toResponse)
                 .toList();
+    }
+
+    public OrderAddressResponseDto getAddress(Long authUserId, Long addressId) {
+        UserProfile userProfile = getUserProfile(authUserId);
+        Address address = getAddress(addressId, userProfile);
+        return addressMapper.toOrderResponse(address);
     }
 
     @Override
