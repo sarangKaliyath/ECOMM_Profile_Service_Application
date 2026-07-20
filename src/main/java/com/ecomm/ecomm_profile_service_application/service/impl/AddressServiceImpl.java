@@ -3,7 +3,7 @@ package com.ecomm.ecomm_profile_service_application.service.impl;
 import com.ecomm.ecomm_profile_service_application.dto.request.CreateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.request.UpdateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.response.AddressResponseDto;
-import com.ecomm.ecomm_profile_service_application.dto.response.OrderAddressResponseDto;
+import com.ecomm.ecomm_profile_service_application.dto.response.ShippingAddressResponseDto;
 import com.ecomm.ecomm_profile_service_application.exception.AddressNotFoundException;
 import com.ecomm.ecomm_profile_service_application.exception.DefaultAddressCannotBeDeletedException;
 import com.ecomm.ecomm_profile_service_application.exception.ProfileNotFoundException;
@@ -37,7 +37,7 @@ public class AddressServiceImpl implements AddressService {
                 .toList();
     }
 
-    public OrderAddressResponseDto getAddress(Long authUserId, Long addressId) {
+    public ShippingAddressResponseDto getAddress(Long authUserId, Long addressId) {
         UserProfile userProfile = getUserProfile(authUserId);
         Address address = getAddress(addressId, userProfile);
         return addressMapper.toOrderResponse(address);
@@ -51,7 +51,7 @@ public class AddressServiceImpl implements AddressService {
 
         address.setUserProfile(userProfile);
 
-        if(Boolean.TRUE.equals(requestDto.getIsDefault())){
+        if (Boolean.TRUE.equals(requestDto.getIsDefault())) {
             clearDefaultAddress(userProfile);
             address.setIsDefault(true);
         }
@@ -85,7 +85,8 @@ public class AddressServiceImpl implements AddressService {
     public void deleteAddress(Long authUserId, Long addressId) {
         UserProfile userProfile = getUserProfile(authUserId);
         Address address = getAddress(addressId, userProfile);
-        if(address.getIsDefault()) throw new DefaultAddressCannotBeDeletedException("Default address cannot be delete.");
+        if (address.getIsDefault())
+            throw new DefaultAddressCannotBeDeletedException("Default address cannot be delete.");
         addressRepository.delete(address);
     }
 

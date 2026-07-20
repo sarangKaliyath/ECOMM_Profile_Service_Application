@@ -3,7 +3,7 @@ package com.ecomm.ecomm_profile_service_application.mapper;
 import com.ecomm.ecomm_profile_service_application.dto.request.CreateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.response.AddressResponseDto;
 import com.ecomm.ecomm_profile_service_application.dto.request.UpdateAddressRequestDto;
-import com.ecomm.ecomm_profile_service_application.dto.response.OrderAddressResponseDto;
+import com.ecomm.ecomm_profile_service_application.dto.response.ShippingAddressResponseDto;
 import com.ecomm.ecomm_profile_service_application.model.Address;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +27,8 @@ public class AddressMapper {
         return  addressResponseDto;
     }
 
-    public OrderAddressResponseDto toOrderResponse(Address address){
-        OrderAddressResponseDto res = new OrderAddressResponseDto();
+    public ShippingAddressResponseDto toOrderResponse(Address address){
+        ShippingAddressResponseDto res = new ShippingAddressResponseDto();
 
         res.setId(address.getId());
 

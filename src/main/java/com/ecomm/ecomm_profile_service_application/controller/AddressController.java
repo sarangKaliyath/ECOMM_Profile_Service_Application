@@ -3,7 +3,7 @@ package com.ecomm.ecomm_profile_service_application.controller;
 import com.ecomm.ecomm_profile_service_application.dto.request.CreateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.request.UpdateAddressRequestDto;
 import com.ecomm.ecomm_profile_service_application.dto.response.AddressResponseDto;
-import com.ecomm.ecomm_profile_service_application.dto.response.OrderAddressResponseDto;
+import com.ecomm.ecomm_profile_service_application.dto.response.ShippingAddressResponseDto;
 import com.ecomm.ecomm_profile_service_application.security.AuthenticatedUser;
 import com.ecomm.ecomm_profile_service_application.security.annotation.CurrentUser;
 import com.ecomm.ecomm_profile_service_application.service.AddressService;
@@ -27,7 +27,7 @@ public class AddressController {
     }
 
     @GetMapping("/{addressId}")
-    public ResponseEntity<OrderAddressResponseDto> getAddress(
+    public ResponseEntity<ShippingAddressResponseDto> getAddress(
             @CurrentUser AuthenticatedUser user,
             @PathVariable Long addressId) {
 
